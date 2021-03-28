@@ -109,17 +109,20 @@ set vb t_vb=
 
 set nocompatible
 filetype off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set rtp+=~/.vim/bundle/vundle
+call vundle#begin()
 
-"使用Vundle来管理Vundle
-Bundle 'gmarik/vundle'
+"Let Vundle manage itself
+Plugin 'gmarik/vundle'
 
 "PowerLine插件 状态栏增强展示
-Bundle 'Lokaltog/vim-powerline'
+Plugin 'Lokaltog/vim-powerline'
+Plugin 'preservim/nerdtree'
+Plugin 'ervandew/supertab'
+Plugin 'Raimondi/delimitMate'
+Plugin 'airblade/vim-gitgutter'
 
-"安装NERD-tree
-Bundle 'The-NERD-tree'
+call vundle#end()
 
 "Vundle配置必须 开启插件
 filetype plugin indent on
@@ -139,9 +142,6 @@ set guifont=Ubuntu\ Mono\ for\ Powerline\ 12
 let NERDTreeMinimalUI=1
 let NERDChristmasTree=1
 
-"Give a shortcut key to NERD Tree 
-"map :NERDTreeToggle
-
 "打开vim时自动打开NerdTree
 autocmd vimenter * NERDTree
 
@@ -149,7 +149,8 @@ autocmd vimenter * NERDTree
 autocmd vimenter * if !argc()|NERDTree|
 
 "当NERDTree为剩下的唯一窗口时自动关闭
-autocmd bufenter * if(winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+"autocmd bufenter * if(winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+autocmd bufenter * if(winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 "不显示隐藏文件
 "let g:NERDTreeHidden=0
@@ -161,15 +162,12 @@ autocmd bufenter * if(winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeT
 "窗口是否显示行号
 "let g:NERDTreeShowLineNumbers=1
 
-"安装SuperTab
-Bundle 'SuperTab'
-
 "0 - 不记录上次的补全方式
 "1 - 记住上次的补全方式,直到用其他的补全命令改变它
 "2 - 记住上次的补全方式,直到按ESC退出插入模式为止
 let g:SuperTabRetainCompletionType=2
 
-"自动补全括号等
-Bundle 'Raimondi/delimitMate'
+"键盘映射
 imap <C-d> <Plug>delimitMateJumpMany
+map <F3> :NERDTreeToggle<CR>
 
