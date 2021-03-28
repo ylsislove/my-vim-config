@@ -96,6 +96,14 @@ filetype plugin indent on
 set vb t_vb=
 
 "==================================
+"   自动补全括号和引号 
+"===================================
+"'':inoremap ( ()<ESC>i
+":inoremap { {<CR>}<ESC>O
+":inoremap [ []<ESC>i
+":inoremap ' ''<ESC>i
+
+"==================================
 "    开始使用Vundle的必须配置始使用Vundle的必须配置
 "===================================
 
@@ -153,6 +161,15 @@ autocmd bufenter * if(winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeT
 "窗口是否显示行号
 "let g:NERDTreeShowLineNumbers=1
 
-
 "安装SuperTab
+Bundle 'SuperTab'
+
+"0 - 不记录上次的补全方式
+"1 - 记住上次的补全方式,直到用其他的补全命令改变它
+"2 - 记住上次的补全方式,直到按ESC退出插入模式为止
+let g:SuperTabRetainCompletionType=2
+
+"自动补全括号等
+Bundle 'Raimondi/delimitMate'
+imap <C-d> <Plug>delimitMateJumpMany
 
