@@ -96,17 +96,8 @@ filetype plugin indent on
 set vb t_vb=
 
 "==================================
-"   自动补全括号和引号 
+"    Vundle配置
 "===================================
-"'':inoremap ( ()<ESC>i
-":inoremap { {<CR>}<ESC>O
-":inoremap [ []<ESC>i
-":inoremap ' ''<ESC>i
-
-"==================================
-"    开始使用Vundle的必须配置始使用Vundle的必须配置
-"===================================
-
 set nocompatible
 filetype off
 set rtp+=~/.vim/bundle/vundle
@@ -121,18 +112,23 @@ Plugin 'preservim/nerdtree'
 Plugin 'ervandew/supertab'
 Plugin 'Raimondi/delimitMate'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'luochen1990/rainbow'
+Plugin 'tpope/vim-commentary'
 
 call vundle#end()
 
 "Vundle配置必须 开启插件
 filetype plugin indent on
 
+"设置rainbow开启
+"let g:rainbow_active=1
+
 "vim有一个状态栏 加上powline则有两个状态栏
 "设置powerline状态栏
 set laststatus=2
 set t_Co=256
 let g:Powline_symbols='fancy'
-set nocompatible
 set enc=utf-8
 let termencoding=&encoding
 set fileencodings=utf-8,gbk,ucs-bom,cp936
@@ -152,22 +148,51 @@ autocmd vimenter * if !argc()|NERDTree|
 "autocmd bufenter * if(winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 autocmd bufenter * if(winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-"不显示隐藏文件
-"let g:NERDTreeHidden=0
-
-"修改树的显示图标
-"let g:NERDTreeDirArrowExpandable='+'
-"let g:NERDTreeDirArrowCollapsible='-'
-
 "窗口是否显示行号
 "let g:NERDTreeShowLineNumbers=1
 
-"0 - 不记录上次的补全方式
-"1 - 记住上次的补全方式,直到用其他的补全命令改变它
-"2 - 记住上次的补全方式,直到按ESC退出插入模式为止
+"0 - 不记录上次的补全方式 1 - 记住上次的补全方式,直到用其他的补全命令改变它 2 - 记住上次的补全方式,直到按ESC退出插入模式为止
 let g:SuperTabRetainCompletionType=2
 
-"键盘映射
-imap <C-d> <Plug>delimitMateJumpMany
-map <F3> :NERDTreeToggle<CR>
+"==================================
+"   主题配置 
+"===================================
+set background=dark
+set t_Co=256
+colorscheme onedark
+"colorscheme monokai
+"colorscheme solarized
+"let g:solarized_termcolors=256
+"let g:solarized_termtrans=0
 
+"==================================
+"   键盘映射 
+"===================================
+let mapleader = "\<Space>"
+
+noremap <F3> :NERDTreeToggle<CR>
+nnoremap <leader><leader> <Esc>:w<CR>
+nnoremap <leader>q <Esc>:q<CR>
+
+"快速编辑和重载vimrc配置文件
+nnoremap <leader>ev :vsp $MYVIMRC<CR>
+nnoremap <leader>sv :source $MYVIMRC<CR>
+
+"安装更新删除插件
+nnoremap <leader>i :PluginInstall
+nnoremap <leader>u :PluginUpdate
+nnoremap <leader>c :PluginClean
+
+"分屏窗口移动
+nnoremap <leader>h <c-w>h
+nnoremap <leader>j <c-w>j
+nnoremap <leader>k <c-w>k
+nnoremap <leader>l <c-w>l
+
+"复制当前选中到剪切板 centos上的vim不支持 用 vim --version | grep clipboard
+vnoremap <leader>y "+y
+"将系统剪切板内容粘贴到vim centos上的vim不支持
+nnoremap <leader>p "+p
+
+"删除当前文件中所有的行尾多余空格
+nnoremap <leader>w :%s/\s\+$//<cr>:let @/=''<CR>
