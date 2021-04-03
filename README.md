@@ -20,5 +20,11 @@ mkdir bundle
 git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 ```
 
+4. 通过vundle安装插件
+```
+vim
+:PluginInstall
+```
+
 ## 参考
 * [vim插件的安装(NERDTree)](https://www.jianshu.com/p/181c2b3ca7b5?utm_campaign=shakespeare)
